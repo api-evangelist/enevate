@@ -1,0 +1,80 @@
+generated: '2026-08-12'
+method: probed
+source: https://www.enevate.com/
+host: https://www.enevate.com
+note: >-
+  Recorded absence. Every /.well-known/ path on the company's own domain returns a real
+  404. The host is no longer a company website at all: https://www.enevate.com/ 302s to
+  /index.html, which serves an 11,883-byte "Website Temporarily Unavailable" domain
+  notice stating the prior Enevate Corporation website has been retired and the domain
+  is under new ownership following an asset acquisition process. NO WellKnown or
+  SecurityTxt pointer is emitted from this probe — nothing here is a served document.
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /.well-known/agent-card.json
+  status: 404
+- path: /.well-known/agent.json
+  status: 404
+soft_200_catch_all:
+  detected: true
+  note: >-
+    Outside /.well-known/, the host answers HTTP 200 with the SAME 11,883-byte HTML
+    placeholder for every path, including paths that cannot exist. These 200s are NOT
+    evidence of a document and were rejected. Byte-identical bodies and Content-Type
+    text/html were confirmed against a control path.
+  control_path: /this-path-does-not-exist-xyz123
+  control_status: 200
+  control_bytes: 11883
+  control_content_type: text/html
+  rejected_200s:
+  - path: /robots.txt
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /sitemap.xml
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /llms.txt
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /openapi.json
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /swagger.json
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /api-docs
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /developers
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /developer
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /api
+    status: 200
+    verdict: html-placeholder-not-a-document
+  - path: /docs
+    status: 200
+    verdict: html-placeholder-not-a-document
+x-evidence:
+  fetched: '2026-08-12'
+  domain_notice_text: >-
+    The prior Enevate Corporation website at this domain has been retired. This domain is
+    now under new ownership following an asset acquisition process. The information
+    previously available on this website should no longer be considered current,
+    including any statements regarding products, services, employment opportunities,
+    investor materials, partnerships, or company operations. This page is being
+    maintained as a temporary placeholder while the new owner evaluates future use of the
+    domain.
+  domain_notice_url: https://www.enevate.com/index.html
+  domain_notice_status: 200
